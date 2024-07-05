@@ -1,7 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const path = require("path");
 dotenv.config();
 require("./backup.js");
 require("./connection.js");
@@ -12,7 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/api", routes);
-app.use("/uploads", express.static("uploads"));
 app.get("/", (req, res) => {
   return res.json({ message: "Server is run!" });
 });

@@ -4,7 +4,7 @@ const filterByLang = require("../utils/filterByLang.js");
 
 exports.getAllBlog = async (req, res) => {
   try {
-    const blogs = await pagination(Blog, req.query, "blogs", "images");
+    const blogs = await pagination(Blog, req.query, "blogs");
     const result = filterByLang(blogs.data, req.query.lang, "title", "description");
     blogs.data = result;
     return res.json(blogs);
@@ -51,20 +51,6 @@ exports.updateBlog = async (req, res) => {
     return res.status(500).json({ error: err.message });
   }
 };
-
-// exports.updateBlog = async (req, res) => {
-//   try {
-//     const oldBlog = await Blog.findById(req.params.blogId);
-//     if (!oldBlog) {
-//       return res.status(404).json({ message: "Blog not found" });
-//     }
-//     Object.assign(oldBlog, req.body);
-//     await oldBlog.save();
-//     return res.json({ data: updatedBlog });
-//   } catch (err) {
-//     return res.status(500).json({ error: err.message });
-//   }
-// };
 
 exports.deleteBlog = async (req, res) => {
   try {

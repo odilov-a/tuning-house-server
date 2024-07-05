@@ -17,12 +17,10 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    images: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "image",
-      },
-    ],
+    images: {
+      type: String,
+      required: true,
+    },
     views: {
       type: Number,
       default: 0,
