@@ -11,5 +11,5 @@ const TranslationSchema = new mongoose.Schema({
   },
 });
 
-const Translations = mongoose.model("translation", TranslationSchema);
+const Translations = mongoose.model("translations", TranslationSchema);
 module.exports = Translations;

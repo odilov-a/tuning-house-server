@@ -1,24 +1,21 @@
+const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
+const path = require("path");
 dotenv.config();
 require("./backup.js");
 require("./connection.js");
-const express = require("express");
-const cors = require("cors");
 const routes = require("./routes/router.js");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(express.json());
-
 app.use(cors());
-
 app.use("/api", routes);
-
+app.use("/uploads", express.static("uploads"));
 app.get("/", (req, res) => {
   return res.json({ message: "Server is run!" });
 });
-
-app.use("/uploads", express.static("uploads"));
 
 function startServerOnPort(port) {
   const listen = app.listen(port, () =>

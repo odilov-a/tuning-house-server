@@ -28,6 +28,18 @@ exports.register = async (req, res) => {
     const newUser = new Users({
       username: req.body.username,
       password: hashedPassword,
+      phone_number: req.body.phone_number,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      googleId: req.body.googleId,
+      appleId: req.body.appleId,
+      facebookId: req.body.facebookId,
+      telegramId: req.body.telegramId,
+      role: req.body.role || "user",
+      adminPermissions: req.body.adminPermissions || [],
+      gender: req.body.gender,
+      birth_date: req.body.birth_date,
+      images: req.body.images,
     });
     const user = await newUser.save();
     return res.json({
@@ -58,6 +70,7 @@ exports.login = async (req, res) => {
       data: {
         token: sign(findUser._id.toString()),
         username: findUser.username,
+        role: findUser.role,
       },
     });
   } catch (err) {
@@ -68,16 +81,13 @@ exports.login = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { userId } = req.headers;
-    const updatedUser = await Users.findByIdAndUpdate(
-      userId,
-      {
-        username: req.body.username,
-        password: req.body.password,
-      },
-      {
-        new: true,
-      }
-    );
+    const updates = { ...req.body };
+    if (updates.password) {
+      updates.password = await bcrypt.hash(updates.password, 10);
+    }
+    const updatedUser = await Users.findByIdAndUpdate(userId, updates, {
+      new: true,
+    });
     if (!updatedUser) {
       return res.status(404).json({
         message: "User not found!",

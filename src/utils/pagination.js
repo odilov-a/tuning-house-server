@@ -36,7 +36,7 @@ const populateAdditionalFields = async (results, populateFields) => {
   }
 };
 
-const paginate = async (model, query, route, ...populateFields) => {
+const paginate = async (model, query, ...populateFields) => {
   try {
     const {
       page = 1,
@@ -82,17 +82,17 @@ const paginate = async (model, query, route, ...populateFields) => {
         totalPages,
       },
       _links: {
-        self: `${URL}/api/${route}/page=${page}&perPage=${perPage}`,
-        first: `${URL}/api/${route}/page=1&perPage=${perPage}`,
+        self: `${URL}/api/${model.modelName}/page=${page}&perPage=${perPage}`,
+        first: `${URL}/api/${model.modelName}/page=1&perPage=${perPage}`,
         prev:
           page > 1
-            ? `${URL}${route}/api/page=${+page - 1}&perPage=${perPage}`
+            ? `${URL}${model.modelName}/api/page=${+page - 1}&perPage=${perPage}`
             : null,
         next:
           page < totalPages
-            ? `${URL}${route}/api/page=${+page + 1}&perPage=${perPage}`
+            ? `${URL}${model.modelName}/api/page=${+page + 1}&perPage=${perPage}`
             : null,
-        last: `${URL}/api/${route}/page=${totalPages}&perPage=${perPage}`,
+        last: `${URL}/api/${model.modelName}/page=${totalPages}&perPage=${perPage}`,
       },
     };
   } catch (error) {

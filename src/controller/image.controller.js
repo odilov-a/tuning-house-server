@@ -1,4 +1,4 @@
-const Images = require("../models/Image");
+const Images = require("../models/Image.js");
 
 exports.getAll = async (req, res) => {
   try {
@@ -8,7 +8,7 @@ exports.getAll = async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({
-      message: "Interval server error!",
+      message: "Internal server error!",
       error: err.message,
     });
   }
@@ -16,22 +16,29 @@ exports.getAll = async (req, res) => {
 
 exports.uploadImage = async (req, res) => {
   try {
-    const images = req.images;
-    if (images.length == 0) {
+    if (!req.file) {
       return res.status(400).json({
-        message: "Eng kamida 1 ta surat bo'lishi kerak!",
+        message: "At least one image is required!",
       });
     }
+
     const newImage = new Images({
-      images: req.images,
+      images: req.file.filename,
     });
-    await newImage.save();
-    return res.json({
-      id: newImage._doc._id,
+
+    const savedImage = await newImage.save();
+    return res.status(201).json({
+      message: "File uploaded",
+      status: 200,
+      data: {
+        fileName: req.file.filename,
+        fileId: savedImage._id.toString(),
+        fileUrl: `http://localhost:3001/uploads/${req.file.filename}`,
+      },
     });
   } catch (err) {
-    return res.status(400).json({
-      message: "Interval server error!",
+    return res.status(500).json({
+      message: "Internal server error!",
       error: err.message,
     });
   }
@@ -39,10 +46,10 @@ exports.uploadImage = async (req, res) => {
 
 exports.editImage = async (req, res) => {
   try {
-    const images = req.images;
-    if (images.length == 0) {
+    const { images } = req.body;
+    if (!images || images.length === 0) {
       return res.status(400).json({
-        message: "Eng kamida 1 ta surat bo'lishi kerak!",
+        message: "At least one image is required!",
       });
     }
     const findImage = await Images.findById(req.params.id);
@@ -51,9 +58,35 @@ exports.editImage = async (req, res) => {
         message: "Image Not Found!",
       });
     }
+    findImage.images = images;
+    const updatedImage = await findImage.save();
+    return res.json({
+      message: "Image updated",
+      data: updatedImage,
+    });
   } catch (err) {
-    return res.status(400).json({
-      message: "Interval server error!",
+    return res.status(500).json({
+      message: "Internal server error!",
+      error: err.message,
+    });
+  }
+};
+
+exports.deleteImage = async (req, res) => {
+  try {
+    const findImage = await Images.findById(req.params.id);
+    if (!findImage) {
+      return res.status(404).json({
+        message: "Image Not Found!",
+      });
+    }
+    await findImage.remove();
+    return res.json({
+      message: "Image deleted",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Internal server error!",
       error: err.message,
     });
   }
