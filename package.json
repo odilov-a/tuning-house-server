@@ -25,17 +25,17 @@
     "webpack-node-externals": "^3.0.0",
     "zip-a-folder": "^3.1.6"
   },
-  "name": "hypernova-starter",
+  "name": "tuning-house",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon src/server.js",
     "start": "node ./dist/bundle.js",
     "build": "webpack --config webpack.config.js --mode production",
     "prod": "node ./dist/bundle.js"
   },
   "keywords": [],
-  "author": "Fotih Yusupov",
+  "author": "Akbar Odilov",
   "license": "MIT",
-  "description": "Express starter"
+  "description": "Tuning house"
 }
