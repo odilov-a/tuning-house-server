@@ -9,8 +9,6 @@ exports.getAll = async (req, res) => {
         message: translation.message,
         uz: translation.uz ? translation.uz : null,
         ru: translation.ru ? translation.ru : null,
-        en: translation.en ? translation.en : null,
-        kr: translation.kr ? translation.kr : null,
       })),
     });
   } catch (err) {
@@ -43,8 +41,6 @@ exports.search = async (req, res) => {
       $or: [
         { uz: { $regex: regex } },
         { ru: { $regex: regex } },
-        { en: { $regex: regex } },
-        { kr: { $regex: regex } }
       ]
     });
 
@@ -54,8 +50,6 @@ exports.search = async (req, res) => {
         message: translation.message,
         uz: translation.uz ? translation.uz : null,
         ru: translation.ru ? translation.ru : null,
-        en: translation.en ? translation.en : null,
-        kr: translation.kr ? translation.kr : null,
       }))
     });
   } catch (err) {

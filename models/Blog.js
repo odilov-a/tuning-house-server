@@ -10,13 +10,15 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    images: [{
-      type: mongoose.Types.ObjectId,
-      ref: "image"
-    }],
+    images: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "image",
+      },
+    ],
     views: {
       type: Number,
-      default: 1
+      default: 1,
     },
   },
   { timestamps: true }

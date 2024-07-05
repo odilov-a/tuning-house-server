@@ -27,8 +27,8 @@ exports.uploadImage = async (req, res) => {
     });
     await newImage.save();
     return res.json({
-      id: newImage._doc._id
-    })
+      id: newImage._doc._id,
+    });
   } catch (err) {
     return res.status(400).json({
       message: "Interval server error!",

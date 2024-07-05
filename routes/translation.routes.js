@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const translationController = require("../controller/translation.controller");
+const translationController = require("../controller/translation.controller.js");
 const translationRouter = Router();
 
 translationRouter.get("/", translationController.getAll);

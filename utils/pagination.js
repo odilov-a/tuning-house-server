@@ -1,4 +1,4 @@
-const URL = process.env.SERVER_URL
+const URL = process.env.SERVER_URL;
 
 const sortFn = (sort) => {
   let sortOption = {};
@@ -38,7 +38,15 @@ const populateAdditionalFields = async (results, populateFields) => {
 
 const paginate = async (model, query, route, ...populateFields) => {
   try {
-    const { page = 1, perPage = 10, includes, sort, filter, start, end} = query;
+    const {
+      page = 1,
+      perPage = 10,
+      includes,
+      sort,
+      filter,
+      start,
+      end,
+    } = query;
 
     if (start || end) {
       filter.createdAt = {};
@@ -57,7 +65,10 @@ const paginate = async (model, query, route, ...populateFields) => {
     let populatedResults = results;
 
     // Populate additional fields if provided
-    populatedResults = await populateAdditionalFields(populatedResults, populateFields);
+    populatedResults = await populateAdditionalFields(
+      populatedResults,
+      populateFields
+    );
 
     const totalCount = await model.countDocuments();
     const totalPages = Math.ceil(totalCount / perPage);
@@ -73,8 +84,14 @@ const paginate = async (model, query, route, ...populateFields) => {
       _links: {
         self: `${URL}/api/${route}/page=${page}&perPage=${perPage}`,
         first: `${URL}/api/${route}/page=1&perPage=${perPage}`,
-        prev: page > 1 ? `${URL}${route}/api/page=${+page - 1}&perPage=${perPage}` : null,
-        next: page < totalPages ? `${URL}${route}/api/page=${+page + 1}&perPage=${perPage}` : null,
+        prev:
+          page > 1
+            ? `${URL}${route}/api/page=${+page - 1}&perPage=${perPage}`
+            : null,
+        next:
+          page < totalPages
+            ? `${URL}${route}/api/page=${+page + 1}&perPage=${perPage}`
+            : null,
         last: `${URL}/api/${route}/page=${totalPages}&perPage=${perPage}`,
       },
     };

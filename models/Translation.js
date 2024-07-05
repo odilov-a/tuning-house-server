@@ -6,13 +6,7 @@ const TranslationSchema = new mongoose.Schema({
   uz: {
     type: String,
   },
-  en: {
-    type: String,
-  },
   ru: {
-    type: String,
-  },
-  kr: {
     type: String,
   },
 });

@@ -41,7 +41,10 @@ const uploadFile = (req, res, next) => {
               })
               .jpeg()
               .toBuffer();
-            fs.writeFileSync(`${outputPath}${filenameJPEG}`, convertedImageBuffer);
+            fs.writeFileSync(
+              `${outputPath}${filenameJPEG}`,
+              convertedImageBuffer
+            );
             image.large = `${process.env.SERVER_URL}/api/${filenameJPEG}`;
             const mediumJPEG = `${Date.now()}_${i}.jpeg`;
             convertedImageBuffer = await sharp(req.files[i].path)
@@ -51,7 +54,10 @@ const uploadFile = (req, res, next) => {
               })
               .jpeg()
               .toBuffer();
-            fs.writeFileSync(`${outputPath}${mediumJPEG}`, convertedImageBuffer);
+            fs.writeFileSync(
+              `${outputPath}${mediumJPEG}`,
+              convertedImageBuffer
+            );
             image.medium = `${process.env.SERVER_URL}/api/${mediumJPEG}`;
             const smallJPEG = `${Date.now()}_${i}.jpeg`;
             convertedImageBuffer = await sharp(req.files[i].path)
@@ -75,7 +81,10 @@ const uploadFile = (req, res, next) => {
               })
               .png()
               .toBuffer();
-            fs.writeFileSync(`${outputPath}${filenamePNG}`, convertedImageBuffer);
+            fs.writeFileSync(
+              `${outputPath}${filenamePNG}`,
+              convertedImageBuffer
+            );
             image.large = `${process.env.SERVER_URL}/api/${filenamePNG}`;
             const mediumPNG = `${Date.now()}_${i}.png`;
             convertedImageBuffer = await sharp(req.files[i].path)
@@ -109,7 +118,10 @@ const uploadFile = (req, res, next) => {
               })
               .webp()
               .toBuffer();
-            fs.writeFileSync(`${outputPath}${filenameWEBP}`, convertedImageBuffer);
+            fs.writeFileSync(
+              `${outputPath}${filenameWEBP}`,
+              convertedImageBuffer
+            );
             image.large = `${process.env.SERVER_URL}/api/${filenameWEBP}`;
             const mediumWEBP = `${Date.now()}_${i}.webp`;
             convertedImageBuffer = await sharp(req.files[i].path)
@@ -119,7 +131,10 @@ const uploadFile = (req, res, next) => {
               })
               .webp()
               .toBuffer();
-            fs.writeFileSync(`${outputPath}${mediumWEBP}`, convertedImageBuffer);
+            fs.writeFileSync(
+              `${outputPath}${mediumWEBP}`,
+              convertedImageBuffer
+            );
             image.medium = `${process.env.SERVER_URL}/api/${mediumWEBP}`;
             const smallWEBP = `${Date.now()}_${i}.webp`;
             convertedImageBuffer = await sharp(req.files[i].path)

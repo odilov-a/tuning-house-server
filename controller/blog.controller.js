@@ -3,7 +3,7 @@ const pagination = require("../utils/pagination.js");
 
 exports.getAllBlog = async (req, res) => {
   try {
-    const blogs = await pagination(Blog, req.query, 'blogs', 'images');
+    const blogs = await pagination(Blog, req.query, "blogs", "images");
     return res.json(blogs);
   } catch (err) {
     return res.status(500).json({ error: err.message });
