@@ -5,7 +5,12 @@ const filterByLang = require("../utils/filterByLang.js");
 exports.getAllBlog = async (req, res) => {
   try {
     const blogs = await pagination(Blog, req.query);
-    const result = filterByLang(blogs.data, req.query.lang, "title", "description");
+    const result = filterByLang(
+      blogs.data,
+      req.query.lang,
+      "title",
+      "description"
+    );
     blogs.data = result;
     return res.json(blogs);
   } catch (err) {
