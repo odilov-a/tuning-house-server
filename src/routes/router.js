@@ -6,6 +6,7 @@ const guideRoutes = require("./guide.routes.js");
 const categoryRoutes = require("./category.routes.js");
 const translationRoutes = require("./translation.routes.js");
 const subcategoryRoutes = require("./subcategory.routes.js");
+const notificationRoutes = require("./notification.routes.js");
 const router = Router();
 
 router.use("/cars", carRoutes);
@@ -15,5 +16,6 @@ router.use("/guidelines", guideRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/translations", translationRoutes);
 router.use("/subcategories", subcategoryRoutes);
+router.use("/notifications", notificationRoutes);
 
 module.exports = router; 

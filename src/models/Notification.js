@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const blogSchema = new mongoose.Schema(
+const notificationSchema = new mongoose.Schema(
   {
     titleUz: {
       type: String,
@@ -17,16 +17,9 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    images: {
-      type: String,
-    },
-    views: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true }
 );
 
-const Blogs = mongoose.model("blogs", blogSchema);
-module.exports = Blogs;
+const Notification = mongoose.model("notifications", notificationSchema);
+module.exports = Notification;
