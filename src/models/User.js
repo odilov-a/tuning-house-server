@@ -12,6 +12,12 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       unique: true,
     },
+    cars: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "cars",
+      },
+    ],
     first_name: {
       type: String,
     },

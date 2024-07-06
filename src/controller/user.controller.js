@@ -29,6 +29,7 @@ exports.register = async (req, res) => {
       username: req.body.username,
       password: hashedPassword,
       phone_number: req.body.phone_number,
+      cars: req.body.cars || [],
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       googleId: req.body.googleId,
