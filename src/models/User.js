@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const UserSchema = new mongoose.Schema(
   {
     username: {
@@ -25,7 +24,7 @@ const UserSchema = new mongoose.Schema(
     birth_date: {
       type: Date,
     },
-    images: {
+    image: {
       type: String,
     },
     googleId: {
@@ -56,6 +55,12 @@ const UserSchema = new mongoose.Schema(
     adminPermissions: {
       type: [String],
       default: [],
+    },
+    verificationCode: {
+      type: String,
+    },
+    verificationCodeExpires: {
+      type: Date,
     },
   },
   {

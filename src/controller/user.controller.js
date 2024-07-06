@@ -78,6 +78,62 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.requestVerificationCode = async (req, res) => {
+  try {
+    const { phone_number } = req.body;
+    const user = await Users.findOne({ phone_number });
+    if (!user) {
+      return res.status(404).json({
+        message: "User Not Found!",
+      });
+    }
+
+    const verificationCode = crypto.randomInt(100000, 999999).toString();
+    user.verificationCode = verificationCode;
+    user.verificationCodeExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // Send verification code via SMS (implementation depends on your SMS service provider)
+    // sendSMS(user.phone_number, verificationCode);
+
+    return res.json({
+      message: "Verification code sent",
+      phone_number: user.phone_number,
+    });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+// Verify code and reset password
+exports.verifyCodeAndResetPassword = async (req, res) => {
+  try {
+    const { phone_number, verificationCode, newPassword } = req.body;
+    const user = await Users.findOne({
+      phone_number,
+      verificationCode,
+      verificationCodeExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid or expired verification code",
+      });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    user.verificationCode = undefined;
+    user.verificationCodeExpires = undefined;
+    await user.save();
+
+    return res.json({
+      message: "Password reset successful",
+    });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
 exports.updateUser = async (req, res) => {
   try {
     const { userId } = req.headers;
