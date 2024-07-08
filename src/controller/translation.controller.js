@@ -38,10 +38,7 @@ exports.search = async (req, res) => {
     const regex = new RegExp(message, "i");
 
     const translations = await Translations.find({
-      $or: [
-        { uz: { $regex: regex } },
-        { ru: { $regex: regex } },
-      ]
+      $or: [{ uz: { $regex: regex } }, { ru: { $regex: regex } }],
     });
 
     return res.json({
@@ -50,7 +47,7 @@ exports.search = async (req, res) => {
         message: translation.message,
         uz: translation.uz ? translation.uz : null,
         ru: translation.ru ? translation.ru : null,
-      }))
+      })),
     });
   } catch (err) {
     return res.json(err);
@@ -73,7 +70,7 @@ exports.create = async (req, res) => {
       await createdTranslation.save();
       return res.json(createdTranslation);
     } else {
-      if(!findMessage[lang]) {
+      if (!findMessage[lang]) {
         findMessage[lang] = text;
       }
       await findMessage.save();

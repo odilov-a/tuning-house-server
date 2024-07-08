@@ -3,7 +3,12 @@ const pagination = require("../utils/pagination.js");
 
 exports.getAllCars = async (req, res) => {
   try {
-    const cars = await pagination(Cars, req.query, "categories", "subcategories");
+    const cars = await pagination(
+      Cars,
+      req.query,
+      "categories",
+      "subcategories"
+    );
     return res.json(cars);
   } catch (err) {
     return res.status(500).json({ error: err.message });

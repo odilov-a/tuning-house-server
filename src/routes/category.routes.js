@@ -7,7 +7,15 @@ categoryRoutes.get("/", categoryController.getAllCategory);
 categoryRoutes.get("/filter", categoryController.filterCategory);
 categoryRoutes.get("/:categoryId", categoryController.getCategoryById);
 categoryRoutes.post("/", authMiddleware, categoryController.createCategory);
-categoryRoutes.put("/:categoryId", authMiddleware, categoryController.updateCategory);
-categoryRoutes.delete("/:categoryId", authMiddleware, categoryController.deleteCategory);
+categoryRoutes.put(
+  "/:categoryId",
+  authMiddleware,
+  categoryController.updateCategory
+);
+categoryRoutes.delete(
+  "/:categoryId",
+  authMiddleware,
+  categoryController.deleteCategory
+);
 
 module.exports = categoryRoutes;

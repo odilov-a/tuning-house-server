@@ -5,9 +5,24 @@ const subcategoryRoutes = Router();
 
 subcategoryRoutes.get("/", subcategoryController.getAllSubcategory);
 subcategoryRoutes.get("/filter", subcategoryController.filterSubcategory);
-subcategoryRoutes.get("/:subcategoryId", subcategoryController.getSubcategoryById);
-subcategoryRoutes.post("/", authMiddleware, subcategoryController.createSubcategory);
-subcategoryRoutes.put("/:subcategoryId", authMiddleware, subcategoryController.updateSubcategory);
-subcategoryRoutes.delete("/:subcategoryId", authMiddleware, subcategoryController.deleteSubcategory);
+subcategoryRoutes.get(
+  "/:subcategoryId",
+  subcategoryController.getSubcategoryById
+);
+subcategoryRoutes.post(
+  "/",
+  authMiddleware,
+  subcategoryController.createSubcategory
+);
+subcategoryRoutes.put(
+  "/:subcategoryId",
+  authMiddleware,
+  subcategoryController.updateSubcategory
+);
+subcategoryRoutes.delete(
+  "/:subcategoryId",
+  authMiddleware,
+  subcategoryController.deleteSubcategory
+);
 
 module.exports = subcategoryRoutes;

@@ -6,8 +6,14 @@ const userRoutes = Router();
 userRoutes.get("/get-me", authMiddleware, userController.getMe);
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
-userRoutes.post("/request-verification-code", userController.requestVerificationCode);
-userRoutes.post("/verify-code-reset-password", userController.verifyCodeAndResetPassword);
+userRoutes.post(
+  "/request-verification-code",
+  userController.requestVerificationCode
+);
+userRoutes.post(
+  "/verify-code-reset-password",
+  userController.verifyCodeAndResetPassword
+);
 userRoutes.put("/update-user", authMiddleware, userController.updateUser);
 
 module.exports = userRoutes;
